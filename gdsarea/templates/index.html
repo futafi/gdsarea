@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>gds area calculator</title>
+    <style>
+        label {
+            display: inline-block;
+            text-align: center;
+            width: 100px;
+        }
+
+        input[type="number"] {
+            width: 100px;
+        }
+
+        input[type="numebr"]::-webkit-inner-spin-button,
+        input[type="numebr"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <p>
+            <label for="gds_file">GDS file</label>
+            <input type="file" name="gds_file" id="gds_file">
+        </p>
+        <p>
+            <!-- top_cell_name input box -->
+            <label for="top_cell_name">Top cell name (Option)</label>
+            <input type="text" name="top_cell_name" id="top_cell_name">
+        </p>
+        <p>
+            <label></label>
+            <input type="submit">
+        </p>
+    </form>
+
+    <!-- show areas by flask -->
+    {% if areas %}
+    {% for area_name, area_layers_sizes in areas.items() %}
+    {{ area_name }}
+    <!-- show sizes by table -->
+    <table>
+        <tr>
+            <th>Layer</th>
+            <th>Area [um^2]</th>
+        </tr>
+        {% for layer, size in area_layers_sizes %}
+        <tr>
+            <td>{{ layer }}</td>
+            <td>{{ size }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
