@@ -1,10 +1,13 @@
 __version__ = '1.0.0'
 from flask import (Flask, request, render_template)
+from werkzeug.middleware.proxy_fix import ProxyFix
 from .get_gds_area import get_gds_area
 
 
 def create_app():
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1,
+                            x_proto=1, x_host=1, x_prefix=1)
 
     @app.route("/", methods=("POST", "GET"))
     def index():
