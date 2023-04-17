@@ -8,8 +8,8 @@ def create_app():
     app = Flask(__name__)
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1,
                             x_proto=1, x_host=1, x_prefix=1)
-    # max file size is 8MB
-    app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024
+    # max file size is 16MB
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
     @app.route("/", methods=("POST", "GET"))
     def index():
